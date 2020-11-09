@@ -45,7 +45,7 @@
             this.txt_url.Name = "txt_url";
             this.txt_url.Size = new System.Drawing.Size(672, 20);
             this.txt_url.TabIndex = 0;
-            this.txt_url.KeyDown += new System.Windows.Forms.KeyEventHandler(this.textBox1_KeyDown);
+            this.txt_url.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_url_KeyDown);
             // 
             // webrowser
             // 
@@ -66,6 +66,7 @@
             this.panel_back.Name = "panel_back";
             this.panel_back.Size = new System.Drawing.Size(20, 20);
             this.panel_back.TabIndex = 2;
+            this.panel_back.MouseClick += new System.Windows.Forms.MouseEventHandler(this.panel_back_MouseClick);
             // 
             // panel_forward
             // 
@@ -75,6 +76,7 @@
             this.panel_forward.Name = "panel_forward";
             this.panel_forward.Size = new System.Drawing.Size(20, 20);
             this.panel_forward.TabIndex = 3;
+            this.panel_forward.MouseClick += new System.Windows.Forms.MouseEventHandler(this.panel_forward_MouseClick);
             // 
             // pane_refresh
             // 
