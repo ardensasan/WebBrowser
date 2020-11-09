@@ -12,12 +12,14 @@ namespace WebBrowser
 {
     public partial class Browser : Form
     {
-        List<string> history;
-        int addressCounter;
+        private List<string> history;
+        private int addressCounter;
+        private String homeaddress;
         public Browser()
         {
             history = new List<string>();
             addressCounter = -1;
+            homeaddress = "google.com";
             InitializeComponent();
         }
 
@@ -30,12 +32,20 @@ namespace WebBrowser
             {
                 address = "https://" + address;
                 addressCounter++;
+                if (addressCounter < history.Count)
+                {
+                    for (int i = history.Count; i > addressCounter && addressCounter > 0; i--)
+                    {
+                        history.RemoveAt(i-1);
+                    }
+                }
                 history.Add(address);
             }
             try
             {
                 txt_url.Text = address;
                 webrowser.Navigate(new Uri(address));
+                updatePanels();
             }
             catch (System.UriFormatException)
             {
@@ -54,11 +64,21 @@ namespace WebBrowser
 
         private void panel_back_MouseClick(object sender, MouseEventArgs e)
         {
+            navigateHistory("B");
+        }
+
+        private void panel_forward_MouseClick(object sender, MouseEventArgs e)
+        {
+            navigateHistory("F");
+        }
+
+        private void navigateHistory(String sender)
+        {
             int counter = -1;
             foreach (string url in history)
             {
                 counter++;
-                if (counter == addressCounter - 1)
+                if (counter == addressCounter + 1 && sender == "F" || counter == addressCounter - 1 && sender == "B")
                 {
                     txt_url.Text = url;
                     webrowser.Navigate(new Uri(url));
@@ -67,20 +87,96 @@ namespace WebBrowser
                 }
             }
         }
-
-        private void panel_forward_MouseClick(object sender, MouseEventArgs e)
+        private void panel_home_Click(object sender, EventArgs e)
         {
-            int counter = -1;
-            foreach (string url in history)
+            GotoAddress(homeaddress);
+            updatePanels();
+        }
+
+        private void Browser_Load(object sender, EventArgs e)
+        {
+            GotoAddress(homeaddress);
+        }
+
+        private void panel_refresh_Click(object sender, EventArgs e)
+        {
+            if (!webrowser.Url.Equals("about:blank"))
             {
-                counter++;
-                if (counter == addressCounter+1)
-                {
-                    txt_url.Text = url;
-                    webrowser.Navigate(new Uri(url));
-                    addressCounter = counter;
-                    break;
-                }
+                webrowser.Refresh();
+            }
+        }
+
+        private void panel_refresh_MouseHover(object sender, EventArgs e)
+        {
+            panel_refresh.BackColor = SystemColors.ActiveCaption;
+        }
+
+        private void panel_home_MouseHover(object sender, EventArgs e)
+        {
+            panel_home.BackColor = SystemColors.ActiveCaption;
+        }
+
+        private void panel_forward_MouseHover(object sender, EventArgs e)
+        {
+            if (panel_forward.BackColor == SystemColors.Control)
+            {
+                panel_forward.BackColor = SystemColors.ActiveCaption;
+            }
+        }
+
+        private void panel_back_MouseHover(object sender, EventArgs e)
+        {
+            if (panel_back.BackColor == SystemColors.Control)
+            {
+                panel_back.BackColor = SystemColors.ActiveCaption;
+            }
+        }
+
+        private void panel_home_MouseLeave(object sender, EventArgs e)
+        {
+            panel_home.BackColor = SystemColors.Control;
+        }
+
+        private void panel_refresh_MouseLeave(object sender, EventArgs e)
+        {
+            panel_refresh.BackColor = SystemColors.Control;
+        }
+
+        private void panel_forward_MouseLeave(object sender, EventArgs e)
+        {
+            updatePanels();
+        }
+
+        private void panel_back_MouseLeave(object sender, EventArgs e)
+        {
+            updatePanels();
+        }
+
+        private void updatePanels()
+        {
+            if (addressCounter > 0)
+            {
+                panel_back.BackColor = SystemColors.Control;
+            }
+            else
+            {
+                panel_back.BackColor = SystemColors.ControlDark;
+            }
+            if (addressCounter < history.Count() - 1)
+            {
+                panel_forward.BackColor = SystemColors.Control;
+            }
+            else
+            {
+                panel_forward.BackColor = SystemColors.ControlDark;
+            }
+        }
+
+        private void webrowser_Navigated(object sender, WebBrowserNavigatedEventArgs e)
+        {
+            if (webrowser.Url != null && webrowser.Url.ToString() != txt_url.Text)
+            {
+                GotoAddress(webrowser.Url.ToString());
             }
         }
     }

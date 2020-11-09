@@ -33,7 +33,7 @@
             this.webrowser = new System.Windows.Forms.WebBrowser();
             this.panel_back = new System.Windows.Forms.Panel();
             this.panel_forward = new System.Windows.Forms.Panel();
-            this.pane_refresh = new System.Windows.Forms.Panel();
+            this.panel_refresh = new System.Windows.Forms.Panel();
             this.panel_home = new System.Windows.Forms.Panel();
             this.SuspendLayout();
             // 
@@ -57,9 +57,11 @@
             this.webrowser.Name = "webrowser";
             this.webrowser.Size = new System.Drawing.Size(798, 413);
             this.webrowser.TabIndex = 1;
+            this.webrowser.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.webrowser_Navigated);
             // 
             // panel_back
             // 
+            this.panel_back.BackColor = System.Drawing.SystemColors.ControlDark;
             this.panel_back.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel_back.BackgroundImage")));
             this.panel_back.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panel_back.Location = new System.Drawing.Point(12, 12);
@@ -67,9 +69,12 @@
             this.panel_back.Size = new System.Drawing.Size(20, 20);
             this.panel_back.TabIndex = 2;
             this.panel_back.MouseClick += new System.Windows.Forms.MouseEventHandler(this.panel_back_MouseClick);
+            this.panel_back.MouseLeave += new System.EventHandler(this.panel_back_MouseLeave);
+            this.panel_back.MouseHover += new System.EventHandler(this.panel_back_MouseHover);
             // 
             // panel_forward
             // 
+            this.panel_forward.BackColor = System.Drawing.SystemColors.ControlDark;
             this.panel_forward.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel_forward.BackgroundImage")));
             this.panel_forward.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.panel_forward.Location = new System.Drawing.Point(38, 12);
@@ -77,15 +82,21 @@
             this.panel_forward.Size = new System.Drawing.Size(20, 20);
             this.panel_forward.TabIndex = 3;
             this.panel_forward.MouseClick += new System.Windows.Forms.MouseEventHandler(this.panel_forward_MouseClick);
+            this.panel_forward.MouseLeave += new System.EventHandler(this.panel_forward_MouseLeave);
+            this.panel_forward.MouseHover += new System.EventHandler(this.panel_forward_MouseHover);
             // 
-            // pane_refresh
+            // panel_refresh
             // 
-            this.pane_refresh.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pane_refresh.BackgroundImage")));
-            this.pane_refresh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.pane_refresh.Location = new System.Drawing.Point(64, 12);
-            this.pane_refresh.Name = "pane_refresh";
-            this.pane_refresh.Size = new System.Drawing.Size(20, 20);
-            this.pane_refresh.TabIndex = 3;
+            this.panel_refresh.BackColor = System.Drawing.SystemColors.Control;
+            this.panel_refresh.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("panel_refresh.BackgroundImage")));
+            this.panel_refresh.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.panel_refresh.Location = new System.Drawing.Point(64, 12);
+            this.panel_refresh.Name = "panel_refresh";
+            this.panel_refresh.Size = new System.Drawing.Size(20, 20);
+            this.panel_refresh.TabIndex = 3;
+            this.panel_refresh.Click += new System.EventHandler(this.panel_refresh_Click);
+            this.panel_refresh.MouseLeave += new System.EventHandler(this.panel_refresh_MouseLeave);
+            this.panel_refresh.MouseHover += new System.EventHandler(this.panel_refresh_MouseHover);
             // 
             // panel_home
             // 
@@ -95,6 +106,9 @@
             this.panel_home.Name = "panel_home";
             this.panel_home.Size = new System.Drawing.Size(20, 20);
             this.panel_home.TabIndex = 4;
+            this.panel_home.Click += new System.EventHandler(this.panel_home_Click);
+            this.panel_home.MouseLeave += new System.EventHandler(this.panel_home_MouseLeave);
+            this.panel_home.MouseHover += new System.EventHandler(this.panel_home_MouseHover);
             // 
             // Browser
             // 
@@ -103,13 +117,14 @@
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.panel_home);
-            this.Controls.Add(this.pane_refresh);
+            this.Controls.Add(this.panel_refresh);
             this.Controls.Add(this.panel_forward);
             this.Controls.Add(this.panel_back);
             this.Controls.Add(this.webrowser);
             this.Controls.Add(this.txt_url);
             this.Name = "Browser";
             this.Text = "Browser";
+            this.Load += new System.EventHandler(this.Browser_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -121,7 +136,7 @@
         private System.Windows.Forms.WebBrowser webrowser;
         private System.Windows.Forms.Panel panel_back;
         private System.Windows.Forms.Panel panel_forward;
-        private System.Windows.Forms.Panel pane_refresh;
+        private System.Windows.Forms.Panel panel_refresh;
         private System.Windows.Forms.Panel panel_home;
     }
 }

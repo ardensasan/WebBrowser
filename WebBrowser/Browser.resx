@@ -687,7 +687,7 @@
         Nd24cf8fvpWOk/HIFUcAAAAASUVORK5CYII=
 </value>
   </data>
-  <data name="pane_refresh.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="panel_refresh.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAgAAAAIACAYAAAD0eNT6AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
         EwAACxMBAJqcGAAAT6pJREFUeF7tnQm4dlP5/1WGFCFDZppoMBPKEJH8lMoQCRUNCv2ajY0ISfOEUCpR
