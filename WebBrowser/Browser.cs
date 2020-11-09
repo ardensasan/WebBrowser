@@ -19,7 +19,7 @@ namespace WebBrowser
         {
             history = new List<string>();
             addressCounter = -1;
-            homeaddress = "google.com";
+            homeaddress = "reddit.com";
             InitializeComponent();
         }
 
@@ -31,21 +31,11 @@ namespace WebBrowser
                 !address.StartsWith("https://"))
             {
                 address = "https://" + address;
-                addressCounter++;
-                if (addressCounter < history.Count)
-                {
-                    for (int i = history.Count; i > addressCounter && addressCounter > 0; i--)
-                    {
-                        history.RemoveAt(i-1);
-                    }
-                }
-                history.Add(address);
             }
             try
             {
                 txt_url.Text = address;
-                webrowser.Navigate(new Uri(address));
-                updatePanels();
+                webBrowser.Navigate(new Uri(address));
             }
             catch (System.UriFormatException)
             {
@@ -81,7 +71,7 @@ namespace WebBrowser
                 if (counter == addressCounter + 1 && sender == "F" || counter == addressCounter - 1 && sender == "B")
                 {
                     txt_url.Text = url;
-                    webrowser.Navigate(new Uri(url));
+                    webBrowser.Navigate(new Uri(url));
                     addressCounter = counter;
                     break;
                 }
@@ -96,13 +86,14 @@ namespace WebBrowser
         private void Browser_Load(object sender, EventArgs e)
         {
             GotoAddress(homeaddress);
+            webBrowser.ScriptErrorsSuppressed = true;
         }
 
         private void panel_refresh_Click(object sender, EventArgs e)
         {
-            if (!webrowser.Url.Equals("about:blank"))
+            if (!webBrowser.Url.Equals("about:blank"))
             {
-                webrowser.Refresh();
+                webBrowser.Refresh();
             }
         }
 
@@ -172,11 +163,22 @@ namespace WebBrowser
             }
         }
 
-        private void webrowser_Navigated(object sender, WebBrowserNavigatedEventArgs e)
+        private void webBrowser_Navigated(object sender, WebBrowserNavigatedEventArgs e)
         {
-            if (webrowser.Url != null && webrowser.Url.ToString() != txt_url.Text)
+            if (webBrowser.Url != null && webBrowser.Url.ToString() != txt_url.Text)
             {
-                GotoAddress(webrowser.Url.ToString());
+                addressCounter++;
+                if (addressCounter < history.Count)
+                {
+                    for (int i = history.Count; i > addressCounter && addressCounter > 0; i--)
+                    {
+                        history.RemoveAt(i - 1);
+                    }
+                }
+                txt_url.Text = webBrowser.Url.ToString();
+                webBrowser.Navigate(new Uri(webBrowser.Url.ToString()));
+                history.Add(webBrowser.Url.ToString());
+                updatePanels();
             }
         }
     }

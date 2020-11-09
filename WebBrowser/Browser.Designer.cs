@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Browser));
             this.txt_url = new System.Windows.Forms.TextBox();
-            this.webrowser = new System.Windows.Forms.WebBrowser();
+            this.webBrowser = new System.Windows.Forms.WebBrowser();
             this.panel_back = new System.Windows.Forms.Panel();
             this.panel_forward = new System.Windows.Forms.Panel();
             this.panel_refresh = new System.Windows.Forms.Panel();
@@ -47,17 +47,17 @@
             this.txt_url.TabIndex = 0;
             this.txt_url.KeyDown += new System.Windows.Forms.KeyEventHandler(this.txt_url_KeyDown);
             // 
-            // webrowser
+            // webBrowser
             // 
-            this.webrowser.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            this.webBrowser.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.webrowser.Location = new System.Drawing.Point(1, 38);
-            this.webrowser.MinimumSize = new System.Drawing.Size(20, 20);
-            this.webrowser.Name = "webrowser";
-            this.webrowser.Size = new System.Drawing.Size(798, 413);
-            this.webrowser.TabIndex = 1;
-            this.webrowser.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.webrowser_Navigated);
+            this.webBrowser.Location = new System.Drawing.Point(1, 38);
+            this.webBrowser.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webBrowser.Name = "webBrowser";
+            this.webBrowser.Size = new System.Drawing.Size(798, 413);
+            this.webBrowser.TabIndex = 1;
+            this.webBrowser.Navigated += new System.Windows.Forms.WebBrowserNavigatedEventHandler(this.webBrowser_Navigated);
             // 
             // panel_back
             // 
@@ -115,12 +115,13 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(800, 450);
             this.Controls.Add(this.panel_home);
             this.Controls.Add(this.panel_refresh);
             this.Controls.Add(this.panel_forward);
             this.Controls.Add(this.panel_back);
-            this.Controls.Add(this.webrowser);
+            this.Controls.Add(this.webBrowser);
             this.Controls.Add(this.txt_url);
             this.Name = "Browser";
             this.Text = "Browser";
@@ -133,7 +134,7 @@
         #endregion
 
         private System.Windows.Forms.TextBox txt_url;
-        private System.Windows.Forms.WebBrowser webrowser;
+        private System.Windows.Forms.WebBrowser webBrowser;
         private System.Windows.Forms.Panel panel_back;
         private System.Windows.Forms.Panel panel_forward;
         private System.Windows.Forms.Panel panel_refresh;
